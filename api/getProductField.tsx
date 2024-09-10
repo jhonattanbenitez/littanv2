@@ -1,8 +1,10 @@
+import { ResultFilterTypes } from "@/types/filters";
 import { useEffect, useState } from "react";
 
-export function useGetCategories() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories?populate=*`;
-  const [result, setResult] = useState(null);
+export function useGetProductField() {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/content-type-builder/content-types/api::product.product`;
+  console.log(url)
+  const [result, setResult] = useState<ResultFilterTypes | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 

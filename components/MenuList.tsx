@@ -48,7 +48,7 @@ const MenuList = () => {
                     href="/"
                   >
                  
-                    <div className="mb-2 mt-4 text-lg font-mediu">
+                    <div className="mb-2 mt-4 text-lg font-medium">
                       shadcn/ui
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
@@ -86,7 +86,7 @@ const MenuList = () => {
                   key={component.title}
                   title={component.title}
                   href={component.href}
-                  className="rounded-md hover:bg-slate-50"
+                  className="rounded-md hover:bg-slate-50 dark:text-primary dark:hover:bg-slate-800 dark:hover:text-white"
                 >
                   {component.description}
                 </ListItem>

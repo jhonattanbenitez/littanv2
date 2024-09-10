@@ -7,7 +7,6 @@ import { CategoryType } from "@/types/category";
 
 const ChooseCategory = () => {
   const { result, loading }: ResponseType = useGetCategories();
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
@@ -25,7 +24,7 @@ const ChooseCategory = () => {
               className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
             >
               <img
-                src={`${baseUrl}${category.attributes.mainImage.data.attributes.url}`}
+                src={category.attributes.mainImage?.data?.attributes.url}
                 alt={category.attributes.categoryName}
                 className="max-w-[270px] transition duration-300 ease-in-out rounded-lg hover:scale-110"
               />

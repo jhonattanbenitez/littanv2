@@ -8,7 +8,7 @@ export type ProductType = {
     active: boolean;
     price: number;
     description: string;
-    type: string;
+    typeOfSleeve: string;
     slug: string;
     createdAt: string;
     updatedAt: string;
