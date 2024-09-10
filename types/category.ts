@@ -3,8 +3,12 @@ export type CategoryType = {
   attributes: {
     categoryName: string;
     slug: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
+    mainImage: {
+      data: {
+        attributes: {
+          url: string;
+        };
+      };
+    };
   };
 };

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useGetFeaturedProducts } from "../app/api/useGetFeturedProducts";
+import { useGetFeaturedProducts } from "@/api/useGetFeturedProducts";
 import { ResponseType } from "@/types/response";
 import {
   Carousel,
@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-      <h3 className="px-6 text-3xl sm:pb-8">Productos destacados</h3>
+      <h3 className="px-6 text-3xl sm:pb-8 text-primary dark:text-white">Productos destacados</h3>
       <Carousel>
         <CarouselContent className="-ml-2 md:-ml-4">
           {loading && <SkeletonSchema grid={3} />}
@@ -65,7 +65,7 @@ const FeaturedProducts = () => {
                         <h3 className="text-lg font-bold">{productName}</h3>
                         <div className="flex items-center justify-between gap-3">
                           {type && (
-                            <p className="px-2 py-1 text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
+                            <p className="px-2 py-1 text-white bg-primary rounded-full dark:bg-white dark:text-primary w-fit">
                               {type}
                             </p>
                           )}
