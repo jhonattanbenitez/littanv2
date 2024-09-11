@@ -1,8 +1,8 @@
-interface ProductTasteOrigin {
+interface ProductTypeOfSleeve {
   typeOfSleve: string;
 }
 
-const ProductTasteOrigin = (props: ProductTasteOrigin) => {
+const ProductTypeOfSleeve = (props: ProductTypeOfSleeve) => {
   const { typeOfSleve } = props;
 
   return (
@@ -15,4 +15,4 @@ const ProductTasteOrigin = (props: ProductTasteOrigin) => {
   );
 };
 
-export default ProductTasteOrigin;
+export default ProductTypeOfSleeve;

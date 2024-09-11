@@ -70,9 +70,13 @@ export const useCart = create(
       // Updated removeItem to handle both id and size if applicable
       removeItem: (id: number, size?: string | null) => {
         set({
-          items: get().items.filter(
-            (item) => item.id !== id || (size && item.selectedSize !== size)
-          ),
+          items: get().items.filter((item) => {
+            // Check if the item ID matches and if the size (if provided) matches as well
+            if (size) {
+              return !(item.id === id && item.selectedSize === size);
+            }
+            return item.id !== id;
+          }),
         });
 
         toast({
@@ -98,3 +102,4 @@ export const useCart = create(
     }
   )
 );
+

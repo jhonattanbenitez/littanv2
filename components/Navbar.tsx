@@ -6,9 +6,11 @@ import React from "react";
 import MenuList from "./MenuList";
 import MenuListMobile from "./MenuListMobile";
 import ToggleTheme from "./ToggleTheme";
+import { useCart } from "@/hooks/use-cart";
 
 const Navbar = () => {
   const router = useRouter();
+  const cart = useCart();
 
   const handleCart = () => {
     router.push("/cart");
@@ -36,12 +38,25 @@ const Navbar = () => {
         <MenuListMobile />
       </div>
       <div className="flex items-center justify-center gap-2 sm:gap-7">
-        <ShoppingBag
+        {cart.items.length === 0 ?
+          <ShoppingBag
           size={24}
           strokeWidth="1"
           className="cursor-pointer"
           onClick={handleCart}
-        />
+        />: (
+          <div className="flex gap-1">
+            <ShoppingBag
+              size={24}
+              strokeWidth="1"
+              className="cursor-pointer"
+              onClick={handleCart}
+            />
+            <span className="font-bold">
+              {cart.items.length}
+            </span>
+          </div>
+        )}
         <Heart
           size={24}
           strokeWidth="1"

@@ -1,4 +1,4 @@
-import ProductTasteOrigin from "@/components/shared/product-taste-origin";
+import ProductTasteOrigin from "@/components/shared/product-type-sleeve";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
@@ -29,10 +29,6 @@ const InfoProduct = (props: InfoProductProps) => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const handleAddToCart = () => {
-    // if (!isAccessory && !selectedSize) {
-    //   alert("Please select a size.");
-    //   return;
-    // }
 
     addItem({
       ...product,
