@@ -16,21 +16,48 @@ import { Card, CardContent } from "./ui/card";
 import { Expand, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import IconButton from "./ui/icon-button";
+import { useCart } from "@/hooks/use-cart";
+import Sizes from "@/app/(routes)/product/[productSlug]/components/sizes";
+import { useState } from "react";
 
 const FeaturedProducts = () => {
   const { result, loading }: ResponseType = useGetFeaturedProducts();
+
+  // Track selected size for each product
+  const [selectedSizes, setSelectedSizes] = useState<{
+    [productId: number]: string | null;
+  }>({});
+
   const router = useRouter();
+  const { addItem, items } = useCart();
+
+  console.log(items);
+
+  // Handler to update the selected size for a specific product
+  const handleSetSelectedSize = (productId: number, size: string) => {
+    setSelectedSizes((prevSizes) => ({
+      ...prevSizes,
+      [productId]: size,
+    }));
+  };
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-      <h3 className="px-6 text-3xl sm:pb-8 text-primary dark:text-white">Productos destacados</h3>
+      <h3 className="px-6 text-3xl sm:pb-8 text-primary dark:text-white">
+        Productos destacados
+      </h3>
       <Carousel>
         <CarouselContent className="-ml-2 md:-ml-4">
           {loading && <SkeletonSchema grid={3} />}
           {result !== null &&
             result.map((product: ProductType) => {
               const { attributes, id } = product;
-              const { slug, images, productName, typeOfSleeve } = attributes;
+              const { slug, images, productName, typeOfSleeve, category } =
+                attributes;
+
+              // Check if the product belongs to the "Accesorios" category
+              const isAccessory =
+                category?.data?.attributes?.categoryName === "Accesorios";
 
               return (
                 <CarouselItem
@@ -53,7 +80,15 @@ const FeaturedProducts = () => {
                               className="text-gray-600"
                             />
                             <IconButton
-                              onClick={() => console.log("Add to cart")}
+                              onClick={() => {
+                                // Add the product to the cart with or without size
+                                addItem({
+                                  ...product,
+                                  ...(selectedSizes[id] && {
+                                    selectedSize: selectedSizes[id],
+                                  }),
+                                });
+                              }}
                               icon={<ShoppingCart size={20} />}
                               className="text-gray-600"
                             />
@@ -62,6 +97,18 @@ const FeaturedProducts = () => {
                       </CardContent>
                       <div className="flex-grow flex flex-col justify-between gap-4 px-8 py-4">
                         <h3 className="text-lg font-bold">{productName}</h3>
+
+                        {/* Conditionally render Sizes component if the product is not an accessory */}
+                        {!isAccessory && (
+                          <Sizes
+                            productId={id}
+                            selectedSize={selectedSizes[id] || null}
+                            setSelectedSize={(size) =>
+                              handleSetSelectedSize(id, size)
+                            }
+                          />
+                        )}
+
                         <div className="flex items-center justify-between gap-3">
                           {typeOfSleeve && (
                             <p className="px-2 py-1 text-white bg-primary rounded-full dark:bg-white dark:text-primary w-fit">

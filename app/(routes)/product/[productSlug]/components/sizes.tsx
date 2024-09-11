@@ -27,7 +27,7 @@ const Sizes = ({ productId, selectedSize, setSelectedSize }: SizesProps) => {
               disabled={isOutOfStock} 
               className={`px-4 py-2 border rounded-md text-xs ${
                 selectedSize === inventoryItem.attributes.size
-                  ? "border-black bg-black text-white"
+                  ? "border-black bg-primary dark:text-white dark:border-white text-white"
                   : "border-gray-300"
               } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : ""}`}
             >
