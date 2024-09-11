@@ -30,7 +30,7 @@ const FeaturedProducts = () => {
           {result !== null &&
             result.map((product: ProductType) => {
               const { attributes, id } = product;
-              const { slug, images, productName, type } = attributes;
+              const { slug, images, productName, typeOfSleeve } = attributes;
 
               return (
                 <CarouselItem
@@ -63,9 +63,9 @@ const FeaturedProducts = () => {
                       <div className="flex-grow flex flex-col justify-between gap-4 px-8 py-4">
                         <h3 className="text-lg font-bold">{productName}</h3>
                         <div className="flex items-center justify-between gap-3">
-                          {type && (
+                          {typeOfSleeve && (
                             <p className="px-2 py-1 text-white bg-primary rounded-full dark:bg-white dark:text-primary w-fit">
-                              {type}
+                              {typeOfSleeve}
                             </p>
                           )}
                         </div>

@@ -1,9 +1,11 @@
-import { ResultFilterTypes } from "@/types/filters";
 import { useEffect, useState } from "react";
+import { InventoryItemType } from "@/types/inventory";
 
-export function useGetProductField() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/content-type-builder/content-types/api::product.product`;
-  const [result, setResult] = useState<ResultFilterTypes | null>(null);
+export function useGetProductInventory(productId: number | string) {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/product-inventories?filters[related_product][id][$eq]=${productId}&populate=*`;
+  console.log(url)
+
+  const [result, setResult] = useState<InventoryItemType[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -12,7 +14,7 @@ export function useGetProductField() {
       try {
         const res = await fetch(url);
         const json = await res.json();
-        setResult(json.data);
+        setResult(json.data); // Here, the result is an array of inventory items
         setLoading(false);
       } catch (error: any) {
         setError(error);

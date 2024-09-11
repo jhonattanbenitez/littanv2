@@ -1,13 +1,17 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { toast } from "@/components/ui/use-toast";
-
 import { ProductType } from "@/types/product";
 
+// Extend ProductType to include selectedSize
+export type CartProductType = ProductType & {
+  selectedSize: string; // Add selectedSize for cart purposes
+};
+
 interface CartStore {
-  items: ProductType[];
-  addItem: (data: ProductType) => void;
-  removeItem: (id: number) => void;
+  items: CartProductType[];
+  addItem: (data: CartProductType) => void;
+  removeItem: (id: number, size: string) => void;
   removeAll: () => void;
 }
 
@@ -15,28 +19,43 @@ export const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
-      addItem: (data: ProductType) => {
+
+      addItem: (data: CartProductType) => {
         const currentItems = get().items;
-        const existingItem = currentItems.find((item) => item.id === data.id);
+
+        // Check for the same product with the same selected size
+        const existingItem = currentItems.find(
+          (item) =>
+            item.id === data.id && item.selectedSize === data.selectedSize
+        );
 
         if (existingItem) {
           return toast({
-            title: "El producto ya existe en el carrito.",
+            title: `El producto ya existe en el carrito (tamaño: ${data.selectedSize}).`,
             variant: "destructive",
           });
         }
 
+        // Add the new product with the selected size
         set({
-          items: [...get().items, data],
+          items: [...currentItems, data],
         });
+
         toast({
-          title: "Producto añadido al carrito 🛍️",
+          title: `Producto (tamaño: ${data.selectedSize}) añadido al carrito 🛍️`,
         });
       },
-      removeItem: (id: number) => {
-        set({ items: [...get().items.filter((item) => item.id !== id)] });
+
+      // Updated removeItem to handle both id and size
+      removeItem: (id: number, size: string) => {
+        set({
+          items: get().items.filter(
+            (item) => item.id !== id || item.selectedSize !== size
+          ),
+        });
+
         toast({
-          title: "Producto eliminado del carrito 🗑️",
+          title: `Producto (tamaño: ${size}) eliminado del carrito 🗑️`,
         });
       },
 
