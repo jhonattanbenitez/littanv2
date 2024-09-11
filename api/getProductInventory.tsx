@@ -3,7 +3,6 @@ import { InventoryItemType } from "@/types/inventory";
 
 export function useGetProductInventory(productId: number | string) {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/product-inventories?filters[related_product][id][$eq]=${productId}&populate=*`;
-  console.log(url)
 
   const [result, setResult] = useState<InventoryItemType[] | null>(null);
   const [loading, setLoading] = useState(true);

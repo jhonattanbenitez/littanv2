@@ -7,25 +7,29 @@ import { formatPrice } from "@/lib/formatPrice";
 import { ProductType } from "@/types/product";
 import { Heart } from "lucide-react";
 import Sizes from "./sizes";
+import { useState } from "react";
 
 export type InfoProductProps = {
   product: ProductType;
 };
-
 
 const InfoProduct = (props: InfoProductProps) => {
   const { product } = props;
   const { addItem } = useCart();
   const { addLoveItem } = useLovedProducts();
 
-  const handleAddToCart = () => {
-    const selectedSize = ""; 
-    if (!selectedSize) {
-      alert("Please select a size.");
-      return;
-    }
-    addItem({ ...product, selectedSize });
-  };
+  // Define selectedSize state
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+
+const handleAddToCart = () => {
+
+  if (!selectedSize) {
+    alert("Please select a size.");
+    return;
+  }
+  addItem({ ...product, selectedSize });
+};
+
 
   return (
     <div className="px-6">
@@ -38,13 +42,17 @@ const InfoProduct = (props: InfoProductProps) => {
       <p>{product?.attributes.description}</p>
       <Separator className="my-4" />
 
-      {/* Pass productId to the Sizes component */}
-      <Sizes productId={product.id} />
+      {/* Pass productId, selectedSize, and setSelectedSize to the Sizes component */}
+      <Sizes
+        productId={product.id}
+        selectedSize={selectedSize}
+        setSelectedSize={setSelectedSize}
+      />
 
       <p className="my-4 text-2xl">{formatPrice(product?.attributes.price)}</p>
       <div className="flex items-center gap-5">
         <Button className="w-full" onClick={handleAddToCart}>
-          Comprar{" "}
+          Comprar
         </Button>
         <Heart
           width={30}

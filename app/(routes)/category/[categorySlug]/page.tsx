@@ -13,16 +13,16 @@ const CategorySlug = () => {
  const params = useParams();
  const { categorySlug } = params;
  const { result, loading }: ResponseType = useGetCategoryProduct(categorySlug);
- const [filterOrigin, setFilterOrigin] = useState("");
+ const [filterTypeOfProduct, setFilterTypeOfProduct] = useState("");
  const router = useRouter();
 
  const filteredProducts =
    result !== null &&
    !loading &&
-   (filterOrigin === ""
+   (filterTypeOfProduct === ""
      ? result
      : result.filter(
-         (product: ProductType) => product.attributes.typeOfSleeve === filterOrigin
+         (product: ProductType) => product.attributes.typeOfSleeve === filterTypeOfProduct
        ));
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
@@ -33,7 +33,7 @@ const CategorySlug = () => {
       )}
       <Separator />
       <div className="sm:flex sm:justify-between">
-        <FiltersControlsCategory setFilterOrigin={setFilterOrigin} />
+        <FiltersControlsCategory setFilterTypeOfProduct={setFilterTypeOfProduct} />
 
         <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
           {loading && <SkeletonSchema grid={3} />}

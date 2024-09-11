@@ -1,15 +1,15 @@
-import FilterOrigin from "./filter-origin";
+import FilterTypeOfProduct from "./filter-types-of-product";
 
 type FiltersControlsCategoryProps = {
-  setFilterOrigin: (origin: string) => void;
+  setFilterTypeOfProduct: (origin: string) => void;
 };
 
 const FiltersControlsCategory = (props: FiltersControlsCategoryProps) => {
-  const { setFilterOrigin } = props;
+  const { setFilterTypeOfProduct} = props;
 
   return (
     <div className="sm:w-[350px] sm:mt-5 p-6">
-      <FilterOrigin setFilterOrigin={setFilterOrigin} />
+      <FilterTypeOfProduct setFilterTypeOfProduct={setFilterTypeOfProduct} />
     </div>
   );
 };

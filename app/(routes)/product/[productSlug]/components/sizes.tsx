@@ -1,15 +1,14 @@
 import { useGetProductInventory } from "@/api/getProductInventory";
 import { InventoryItemType } from "@/types/inventory";
-import React, { useState } from "react";
 
 type SizesProps = {
   productId: number;
+  selectedSize: string | null;
+  setSelectedSize: (size: string) => void;
 };
 
-const Sizes = ({ productId }: SizesProps) => {
+const Sizes = ({ productId, selectedSize, setSelectedSize }: SizesProps) => {
   const { result, loading, error } = useGetProductInventory(productId);
-  console.log(result)
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   if (loading) return <p>Cargando Tallas</p>;
   if (error) return <p>Error cargando tallas: {error}</p>;
