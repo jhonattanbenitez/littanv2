@@ -2,10 +2,10 @@ import ProductTasteOrigin from "@/components/shared/product-type-sleeve";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
-import { useLovedProducts } from "@/hooks/use-loved-products";
+// import { useLovedProducts } from "@/hooks/use-loved-products";
 import { formatPrice } from "@/lib/formatPrice";
 import { ProductType } from "@/types/product";
-import { Heart } from "lucide-react";
+// import { Heart } from "lucide-react";
 import Sizes from "./sizes";
 import { useState } from "react";
 
@@ -16,7 +16,7 @@ export type InfoProductProps = {
 const InfoProduct = (props: InfoProductProps) => {
   const { product } = props;
   const { addItem } = useCart();
-  const { addLoveItem } = useLovedProducts();
+  // const { addLoveItem } = useLovedProducts();
 
   // Check if the product belongs to the "Accesorios" category
   const isAccessory =
@@ -63,12 +63,12 @@ const InfoProduct = (props: InfoProductProps) => {
         <Button className="w-full" onClick={handleAddToCart}>
           Comprar
         </Button>
-        <Heart
+        {/* <Heart
           width={30}
           strokeWidth={1}
           className="transition duration-300 cursor-pointer hover:fill-black"
           onClick={() => addLoveItem(product)}
-        />
+        /> */}
       </div>
     </div>
   );

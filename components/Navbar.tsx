@@ -1,5 +1,5 @@
 "use client";
-import { Heart, ShoppingBag, User } from "lucide-react";
+import { ShoppingBag, User } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -15,9 +15,9 @@ const Navbar = () => {
   const handleCart = () => {
     router.push("/cart");
   };
-  const handleLiked = () => {
-    router.push("/liked");
-  };
+  // const handleLiked = () => {
+  //   router.push("/mi-lista-de-deseos");
+  // };
   const handleUser = () => {
     router.push("/profile");
   };
@@ -57,12 +57,12 @@ const Navbar = () => {
             </span>
           </div>
         )}
-        <Heart
+        {/* <Heart
           size={24}
           strokeWidth="1"
           className="cursor-pointer"
           onClick={handleLiked}
-        />
+        /> */}
         <User
           size={24}
           strokeWidth="1"
