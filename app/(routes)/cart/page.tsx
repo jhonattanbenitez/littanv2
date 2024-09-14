@@ -4,35 +4,36 @@ import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import CartItem from "@/app/(routes)/category/components/cart-item";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { makePaymentRequest } from "@/api/payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { makePaymentRequest } from "@/api/payment";
 
 export default function Page() {
-  // const { items, removeAll } = useCart();
-
   const { items } = useCart();
+
   console.log(items)
   const prices = items.map((product) => product.attributes.price);
   const totalPrice = prices.reduce((total, price) => total + price, 0);
-  // const stripePromise = loadStripe(
-  //   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
-  // );
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
+  );
 
-  // const buyStripe = async () => {
-  //   removeAll();
-  //   try {
-  //     const stripe = await stripePromise;
-  //     const res = await makePaymentRequest.post("/api/orders", {
-  //       products: items,
-  //     });
-  //     await stripe?.redirectToCheckout({
-  //       sessionId: res.data.stripeSession.id,
-  //     });
-  //     removeAll();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
+
+  const buyStripe = async () => {
+    // removeAll();
+    try {
+      const stripe = await stripePromise;
+      const res = await makePaymentRequest.post("/api/orders", {
+        products: items,
+      });
+      await stripe?.redirectToCheckout({
+        sessionId: res.data.stripeSession.id,
+      });
+      // removeAll();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8 lg:min-h-[80vh]">
@@ -55,7 +56,7 @@ export default function Page() {
               <p>{formatPrice(totalPrice)}</p>
             </div>
             <div className="flex items-center justify-center w-full mt-3">
-              <Button className="w-full" onClick={() => console.log('comprar')}>
+              <Button className="w-full" onClick={buyStripe}>
                 Comprar
               </Button>
             </div>
