@@ -81,7 +81,7 @@ const Profile: React.FC<ProfileProps> = ({ token }) => {
             {user.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={`${backEnd}${user.avatarUrl ?? ""}`}
+                src={`${user.avatarUrl ?? ""}`}
                 alt={`${user.username} avatar`}
                 className="rounded-full w-32 h-32 object-cover"
               />
