@@ -123,14 +123,14 @@ const UploadAvatar = ({
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>{avatarUrl ? "Change" : "Upload"} Avatar</Button>
+          <Button>{avatarUrl ? "Cambiar" : "Subir"} foto</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{avatarUrl ? "Change" : "Upload"} Avatar</DialogTitle>
+            <DialogTitle>{avatarUrl ? "Cambiar" : "Subir"} foto</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <Label htmlFor="file">Upload File</Label>
+            <Label htmlFor="file">Subir foto</Label>
             <Input
               type="file"
               id="file"
@@ -147,7 +147,7 @@ const UploadAvatar = ({
               onClick={() => setOpen(false)}
               disabled={loading}
             >
-              Cancel
+              Cancelar
             </Button>
           </DialogFooter>
         </DialogContent>

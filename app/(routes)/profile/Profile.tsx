@@ -100,17 +100,17 @@ const Profile: React.FC<ProfileProps> = ({ token }) => {
 
         {/* Information Section */}
         <div className="flex-grow">
-          <h2 className="text-2xl font-semibold mb-2">Profile Information</h2>
+          <h2 className="text-2xl font-semibold mb-2">Tu información</h2>
           <p className="text-gray-700 text-lg">
-            <span className="font-semibold">Name: </span>
+            <span className="font-semibold">Nombre: </span>
             {user.username || "N/A"}
           </p>
           <p className="text-gray-700 text-lg">
-            <span className="font-semibold">Email: </span>
+            <span className="font-semibold">Correo: </span>
             {user.email || "N/A"}
           </p>
           <p className="text-gray-700 text-lg">
-            <span className="font-semibold">Account Created: </span>
+            <span className="font-semibold">Cuenta creada el: </span>
             {user.createdAt && new Date(user.createdAt).toLocaleDateString()}
           </p>
         </div>

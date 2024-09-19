@@ -1,43 +1,65 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Profile from "./Profile"; // Import the Profile component
-import { toast } from "@/hooks/use-toast"; // Importing the custom toast hook
-import { useRouter } from "next/navigation";
+import Login from "./Login"; // Import Login component
+import Register from "./Register"; // Import Register component
 import { Button } from "@/components/ui/button";
 
 const ProfilePage = () => {
   const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState(true); // Toggle between login and registration
+
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt");
-
     if (jwtToken) {
       setToken(jwtToken);
-    } else {
-      toast({
-        title: "Authentication Error",
-        description: "You must be logged in to view this page.",
-        variant: "destructive",
-      });
     }
-
-    setIsLoading(false); // Stop loading after token check
+    setIsLoading(false);
   }, []);
 
   if (isLoading) {
     return (
       <div className="text-center">
-        <p>Loading...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
 
   if (!token) {
     return (
-      <div className="text-center">
-        <p>You must log in to view this page.</p>
-        <Button onClick={() => router.push('/login')} >Login</Button>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="w-full max-w-md space-y-6">
+          {isLogin ? (
+            <>
+              <Login setToken={setToken} />
+              <p className="text-center mt-4">
+                ¿No tienes una cuenta?{" "}
+                <Button
+                  variant="link"
+                  className="text-blue-600"
+                  onClick={() => setIsLogin(false)}
+                >
+                  Registrarse
+                </Button>
+              </p>
+            </>
+          ) : (
+            <>
+              <Register setIsLogin={setIsLogin} />
+              <p className="text-center mt-4">
+                ¿Ya tienes una cuenta?{" "}
+                <Button
+                  variant="link"
+                  className="text-blue-600"
+                  onClick={() => setIsLogin(true)}
+                >
+                  Acceder
+                </Button>
+              </p>
+            </>
+          )}
+        </div>
       </div>
     );
   }
