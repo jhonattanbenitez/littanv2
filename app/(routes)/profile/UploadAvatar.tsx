@@ -30,6 +30,7 @@ const UploadAvatar = ({
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false); // For controlling modal state
+  const backEnd = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -50,7 +51,7 @@ const UploadAvatar = ({
   const updateUserAvatarId = async (avatarId: number, avatarUrl: string) => {
     try {
       await axios.put(
-        `http://localhost:1337/api/users/${userId}`,
+        `${backEnd}/api/users/${userId}`,
         { avatarId, avatarUrl },
         {
           headers: {
@@ -92,7 +93,7 @@ const UploadAvatar = ({
       formData.append("name", `${username} avatar`);
 
       const response = await axios.post(
-        `http://localhost:1337/api/upload`,
+        `${backEnd}/api/upload`,
         formData,
         {
           headers: {

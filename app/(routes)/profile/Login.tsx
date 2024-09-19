@@ -19,9 +19,10 @@ const Login = ({ setToken }: { setToken: (token: string) => void }) => {
       [name]: value,
     }));
   };
-
+  
   const handleLogin = async () => {
-    const url = `http://localhost:1337/api/auth/local`;
+    const backEnd = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const url = `${backEnd}/api/auth/local`;
     try {
       if (loginUser.identifier && loginUser.password) {
         const { data } = await axios.post(url, loginUser);

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast"; // Import the custom toast hook
 
 const initialRegisterUser = { username: "", email: "", password: "" };
+const backEnd = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const Register = ({
   setIsLogin,
@@ -24,7 +25,7 @@ const Register = ({
 
   const handleRegister = async () => {
     try {
-      const url = `http://localhost:1337/api/auth/local/register`;
+      const url = `${backEnd}/api/auth/local/register`;
       if (
         registerUser.username &&
         registerUser.email &&

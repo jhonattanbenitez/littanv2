@@ -30,11 +30,13 @@ const Profile: React.FC<ProfileProps> = ({ token }) => {
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const [loading, setLoading] = useState(true); // State to manage loading
+  const backEnd = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     const getProfileData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:1337/api/users/me`, {
+    
+        const { data } = await axios.get(`${backEnd}/api/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,7 +81,7 @@ const Profile: React.FC<ProfileProps> = ({ token }) => {
             {user.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={`http://localhost:1337${user.avatarUrl ?? ""}`}
+                src={`${backEnd}${user.avatarUrl ?? ""}`}
                 alt={`${user.username} avatar`}
                 className="rounded-full w-32 h-32 object-cover"
               />
