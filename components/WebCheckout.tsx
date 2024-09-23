@@ -34,11 +34,11 @@ const WebCheckout: React.FC<WebCheckoutProps> = ({
     const generateSignature = async () => {
       try {
         const apiKey = process.env.NEXT_PUBLIC_PAYU_API_KEY; // From .env file
-        console.log(apiKey)
-        console.log(merchantId)
-        console.log(referenceCode)
-        console.log(amount)
-        console.log(currency)
+        // console.log(apiKey)
+        // console.log(merchantId)
+        // console.log(referenceCode)
+        // console.log(amount)
+        // console.log(currency)
         if (!apiKey || !merchantId || !referenceCode || !amount || !currency) {
           throw new Error("Missing required fields for signature generation.");
         }
